@@ -11,6 +11,5 @@ program
   .argument('<filePath2>', 'path for second file');
 program.parse(process.argv);
 
-//
 const [filePath1, filePath2] = program.args;
 export { filePath1, filePath2 };
