@@ -1,19 +1,10 @@
 const parseFile = (
   dataFromFirstFile,
   dataFromSecondFile,
-  firstFileExtention,
-  secondFileExtention,
 ) => {
-  let parsedFirstFile;
-  let parsedSecondFile;
-
-  if (firstFileExtention === '.json') {
-    parsedFirstFile = JSON.parse(dataFromFirstFile);
-  }
-
-  if (secondFileExtention === '.json') {
-    parsedSecondFile = JSON.parse(dataFromSecondFile);
-  }
+  
+  const parsedFirstFile = JSON.parse(dataFromFirstFile);
+  const parsedSecondFile = JSON.parse(dataFromSecondFile);
 
   return { parsedFirstFile, parsedSecondFile };
 };

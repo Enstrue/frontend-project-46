@@ -1,7 +1,8 @@
 import { Command } from 'commander';
 import fs from 'fs';
 import path from 'path';
-import parseFile from './parse';
+import parseFile from './parse.js';
+import getDiff from './diff.js';
 
 const program = new Command();
 
@@ -22,17 +23,17 @@ program
     const dataFromSecondFile = fs.readFileSync(absolutePath2, 'utf-8');
 
     // определю формат
-    const firstFileExtention = path.extname(absolutePath1);
-    const secondFileExtention = path.extname(absolutePath2);
+    // const firstFileExtention = path.extname(absolutePath1);
+    // const secondFileExtention = path.extname(absolutePath2);
 
     // получаем распарсенные данные
     const { parsedFirstFile, parsedSecondFile } = parseFile(
       dataFromFirstFile,
       dataFromSecondFile,
-      firstFileExtention,
-      secondFileExtention,
     );
     // логика отвечающая за сравнение файлов
+    const difference = getDiff(parsedFirstFile, parsedSecondFile);
+    console.log(difference);
   });
 
 program.parse(process.argv);
