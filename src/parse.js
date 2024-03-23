@@ -1,11 +1,5 @@
-const parseFile = (
-  dataFromFirstFile,
-  dataFromSecondFile,
-) => {
-  
-  const parsedFirstFile = JSON.parse(dataFromFirstFile);
-  const parsedSecondFile = JSON.parse(dataFromSecondFile);
-
-  return { parsedFirstFile, parsedSecondFile };
+const parseFile = (dataFromFile) => {
+  const parsedFile = JSON.parse(dataFromFile);
+  return parsedFile;
 };
 export default parseFile;

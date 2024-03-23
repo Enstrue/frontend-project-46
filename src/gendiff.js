@@ -27,12 +27,14 @@ program
     // const secondFileExtention = path.extname(absolutePath2);
 
     // получаем распарсенные данные
-    const { parsedFirstFile, parsedSecondFile } = parseFile(
-      dataFromFirstFile,
-      dataFromSecondFile,
-    );
+    const parsedFirstFile = parseFile(dataFromFirstFile);
+    const parsedSecondFile = parseFile(dataFromSecondFile);
+
+    // сортируем получившиеся объекты
+    const sortedFirstFile = Object.fromEntries(Object.entries(parsedFirstFile).sort());
+    const sortedSecondFile = Object.fromEntries(Object.entries(parsedSecondFile).sort());
     // логика отвечающая за сравнение файлов
-    const difference = getDiff(parsedFirstFile, parsedSecondFile);
+    const difference = getDiff(sortedFirstFile, sortedSecondFile);
     console.log(difference);
   });
 

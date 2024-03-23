@@ -3,26 +3,23 @@ import _ from 'lodash';
 const getDiff = (file1, file2) => {
   const result = [];
 
-  for (let key in file1) {
-    if (_.has(file2, key)) {
+  const keys = _.union(Object.keys(file1), Object.keys(file2));
+  const sortedKeys = _.sortBy(keys);
+
+  sortedKeys.forEach((key) => {
+    if (_.has(file1, key) && _.has(file2, key)) {
       if (file1[key] === file2[key]) {
         result.push(`${key}: ${file1[key]}`);
       } else {
         result.push(`- ${key}: ${file1[key]}`);
         result.push(`+ ${key}: ${file2[key]}`);
+      } 
+    } else if (_.has(file2, key)) {
+        result.push(`+ ${key}: ${file2[key]}`);
+      } else {
+        result.push(`- ${key}: ${file1[key]}`);
       }
-    } else {
-      result.push(`- ${key}: ${file1[key]}`);
-    }
-  }
-
-  for (let key in file2) {
-    if (!_.has(file1, key)) {
-      result.push(`+ ${key}: ${file2[key]}`);
-    }
-  }
-  const sortedResult = _.sortBy(result).join('\n');
-  return sortedResult;
+    });
+  return result;
 };
-
 export default getDiff;
