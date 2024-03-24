@@ -30,11 +30,8 @@ program
     const parsedFirstFile = parseFile(dataFromFirstFile);
     const parsedSecondFile = parseFile(dataFromSecondFile);
 
-    // сортируем получившиеся объекты
-    const sortedFirstFile = Object.fromEntries(Object.entries(parsedFirstFile).sort());
-    const sortedSecondFile = Object.fromEntries(Object.entries(parsedSecondFile).sort());
     // логика отвечающая за сравнение файлов
-    const difference = getDiff(sortedFirstFile, sortedSecondFile);
+    const difference = getDiff(parsedFirstFile, parsedSecondFile);
     console.log(difference);
   });
 
