@@ -13,13 +13,13 @@ const getDiff = (file1, file2) => {
       } else {
         result.push(`- ${key}: ${file1[key]}`);
         result.push(`+ ${key}: ${file2[key]}`);
-      } 
-    } else if (_.has(file2, key)) {
-        result.push(`+ ${key}: ${file2[key]}`);
-      } else {
-        result.push(`- ${key}: ${file1[key]}`);
       }
-    });
+    } else if (_.has(file2, key)) {
+      result.push(`+ ${key}: ${file2[key]}`);
+    } else {
+      result.push(`- ${key}: ${file1[key]}`);
+    }
+  });
   return result;
 };
 export default getDiff;

@@ -6,5 +6,6 @@ rules:
     - error
     - ignorePackages
     - js: always
-  import/no-extraneous-dependencies:
-    devDependencies: true
+  import/no-extraneous-dependencies: 
+    - error
+    - devDependencies: true
