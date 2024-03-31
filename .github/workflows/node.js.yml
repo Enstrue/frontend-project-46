@@ -13,10 +13,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    # Add your build steps here
+      # Add your build steps here
 
-    - name: Run tests
-      run: npm test
+      - name: Run tests
+        run: npm test
+
+      - name: Test & publish code coverage
+        uses: paambaati/codeclimate-action@v5.0.0
+        with:
+          cc_test_reporter_id: ${{ secrets.CC_TEST_REPORTER_ID }}
+          coverage_command: make test-coverage
+          debug: true
+
+env:
+  CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
