@@ -3,13 +3,6 @@ parserOptions:
   ecmaVersion: 2020
 rules:
   no-underscore-dangle: [2, { "allow": ["__filename", "__dirname"] }] # разрешает подчёркивание в именах только для двух констант
-
-extends:
-  - airbnb-base
-env: 
-    "jest": true
-    
-rules:
   no-console: 0
   import/extensions:
     - error
@@ -18,3 +11,7 @@ rules:
   import/no-extraneous-dependencies: 
     - error
     - devDependencies: true
+extends:
+  - airbnb-base
+env: 
+    "jest": true
