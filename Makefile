@@ -14,4 +14,4 @@ test:
 	npx jest
 
 test-coverage:
-    npm run coverage
+	npm run coverage
