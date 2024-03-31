@@ -1,15 +1,11 @@
 import _ from 'lodash';
-import fs from 'fs';
-import parseFile from './parse.js';
+import getParseFile from './parse.js';
 
 const getDiff = (filePath1, filePath2) => {
   let result = '';
 
-  const dataFromFirstFile = fs.readFileSync(filePath1, 'utf-8');
-  const dataFromSecondFile = fs.readFileSync(filePath2, 'utf-8');
-
-  const parsedFirstFile = parseFile(dataFromFirstFile);
-  const parsedSecondFile = parseFile(dataFromSecondFile);
+  const parsedFirstFile = getParseFile(filePath1);
+  const parsedSecondFile = getParseFile(filePath2);
 
   const keys = _.union(Object.keys(parsedFirstFile), Object.keys(parsedSecondFile));
   const sortedKeys = _.sortBy(keys);
