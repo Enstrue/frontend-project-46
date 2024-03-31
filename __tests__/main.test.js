@@ -1,32 +1,27 @@
-import fs from 'fs';
-// import path from 'path';
-// import { fileURLToPath } from 'url';
-// import { dirname } from 'path';
+import * as fs from 'fs';
+import path from 'path';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
 import getDiff from '../src/diff.js';
 import parseFile from '../src/parse.js';
 
-test('object has expected key-value pairs', () => {
-  const expectedResult = {
-    '- follow': false,
-    host: 'hexlet.io',
-    '- proxy': '123.234.53.22',
-    '- timeout': '50',
-    '+ timeout': '20',
-    '+ verbose': true,
-  };
+// eslint-disable-next-line no-underscore-dangle
+const __filename = fileURLToPath(import.meta.url);
 
-  // получаю пути к фаилам
-  const filePath1 = '__fixtures__/file1.json';
-  const filePath2 = '__fixtures__/file1.json';
+// eslint-disable-next-line no-underscore-dangle
+const __dirname = dirname(__filename);
 
-  // читаю фаилы для дальнейшего парсинга
-  const dataFromFirstFile = fs.readFileSync(filePath1, 'utf-8');
-  const dataFromSecondFile = fs.readFileSync(filePath2, 'utf-8');
+// получаю пути к файлам
+const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 
-  // получаем распарсенные данные
-  const parsedFirstFile = parseFile(dataFromFirstFile);
-  const parsedSecondFile = parseFile(dataFromSecondFile);
+// читаю файл для получение эталонного результата
+const readFile = (filename) => fs.readFileSync(getFixturePath(filename), 'utf-8').trim();
 
-  const actualDifference = getDiff(parsedFirstFile, parsedSecondFile);
-  expect(actualDifference).toEqual(expectedResult);
+test('Compare JSON files', () => {
+  const filepath1 = getFixturePath('file1.json');
+  const filepath2 = getFixturePath('file2.json');
+  const expected = readFile('expectedResult.txt');
+
+  expect(getDiff(filepath1, filepath2).trim()).toEqual(expected.trim());
+
 });

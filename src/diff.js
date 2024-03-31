@@ -1,25 +1,38 @@
 import _ from 'lodash';
+import fs from 'fs';
+import parseFile from './parse.js';
 
-const getDiff = (file1, file2) => {
-  const result = [];
+const getDiff = (filePath1, filePath2) => {
+  let result = '';
 
-  const keys = _.union(Object.keys(file1), Object.keys(file2));
+  const dataFromFirstFile = fs.readFileSync(filePath1, 'utf-8');
+  const dataFromSecondFile = fs.readFileSync(filePath2, 'utf-8');
+
+  const parsedFirstFile = parseFile(dataFromFirstFile);
+  const parsedSecondFile = parseFile(dataFromSecondFile);
+
+  const keys = _.union(Object.keys(parsedFirstFile), Object.keys(parsedSecondFile));
   const sortedKeys = _.sortBy(keys);
 
   sortedKeys.forEach((key) => {
-    if (_.has(file1, key) && _.has(file2, key)) {
-      if (file1[key] === file2[key]) {
-        result.push(`${key}: ${file1[key]}`);
+    if (_.has(parsedFirstFile, key) && _.has(parsedSecondFile, key)) {
+      if (parsedFirstFile[key] === parsedSecondFile[key]) {
+        // Если значения равны, добавляем их в результат
+        result += `${key}: ${parsedFirstFile[key]}\n`;
       } else {
-        result.push(`- ${key}: ${file1[key]}`);
-        result.push(`+ ${key}: ${file2[key]}`);
+        // Если значения различаются, добавляем их с маркерами различий
+        result += `- ${key}: ${parsedFirstFile[key]}\n`;
+        result += `+ ${key}: ${parsedSecondFile[key]}\n`;
       }
-    } else if (_.has(file2, key)) {
-      result.push(`+ ${key}: ${file2[key]}`);
+    } else if (_.has(parsedSecondFile, key)) {
+      // Если ключ только во втором файле, добавляем его соответствующее значение в результат
+      result += `+ ${key}: ${parsedSecondFile[key]}\n`;
     } else {
-      result.push(`- ${key}: ${file1[key]}`);
+      // Если ключ только в первом файле, добавляем его соответствующее значение в результат
+      result += `- ${key}: ${parsedFirstFile[key]}\n`;
     }
   });
+  // Возвращаем сгенерированную строку с различиями
   return result;
 };
 export default getDiff;
