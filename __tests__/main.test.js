@@ -1,9 +1,7 @@
 import * as fs from 'fs';
-import path from 'path';
-import { dirname } from 'path';
+import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import getDiff from '../src/diff.js';
-import parseFile from '../src/parse.js';
 
 // eslint-disable-next-line no-underscore-dangle
 const __filename = fileURLToPath(import.meta.url);
@@ -23,5 +21,4 @@ test('Compare JSON files', () => {
   const expected = readFile('expectedResult.txt');
 
   expect(getDiff(filepath1, filepath2).trim()).toEqual(expected.trim());
-
 });
