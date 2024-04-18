@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import getParseFile from './parse.js';
 import formatDiff from './formatters/stylish.js';
+import conversionPath from './path.js';
 
 const findDifferences = (data1, data2) => {
   const keys = _.union(Object.keys(data1), Object.keys(data2));
@@ -34,8 +35,11 @@ const findDifferences = (data1, data2) => {
 };
 
 const getDiff = (filePath1, filePath2) => {
-  const parsedFirstFile = getParseFile(filePath1);
-  const parsedSecondFile = getParseFile(filePath2);
+  const normalizeFirstPath = conversionPath(filePath1);
+  const normalizeSecondPath = conversionPath(filePath2);
+
+  const parsedFirstFile = getParseFile(normalizeFirstPath);
+  const parsedSecondFile = getParseFile(normalizeSecondPath);
 
   const diff = findDifferences(parsedFirstFile, parsedSecondFile);
   return formatDiff(diff); // Форматирование различий перед возвратом

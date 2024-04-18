@@ -1,6 +1,5 @@
 import { Command } from 'commander';
 import getDiff from '../src/diff.js';
-import conversionPath from '../src/path.js';
 
 let difference;
 
@@ -10,16 +9,12 @@ program
   .name('gendiff')
   .description('Compares two configuration files and shows a difference.')
   .option('-v, --version', 'output the version number')
-  .option('-f, --format [type]', 'output format')
+  .option('-f, --format [type]', 'output format', 'stylish')
   .argument('<filePath1>', 'path for first file')
   .argument('<filePath2>', 'path for second file')
-  .action((filePath1, filePath2) => {
-    // получаю пути к фаилам
-    const pathToFile1 = conversionPath(filePath1);
-    const pathToFile2 = conversionPath(filePath2);
-
+  .action((filePath1, filePath2, options) => {
     // логика отвечающая за сравнение файлов
-    difference = getDiff(pathToFile1, pathToFile2);
+    difference = getDiff(filePath1, filePath2, options.format);
     console.log(difference);
   });
 

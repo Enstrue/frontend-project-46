@@ -2,7 +2,7 @@ import _ from 'lodash';
 
 const indentSize = 4;
 
-const indent = (depth) => ' '.repeat(depth * indentSize);
+const indent = (depth) => ' '.repeat((depth * indentSize)); // Определяем отступы с учетом смещения влево
 
 const stringify = (value, depth) => {
   if (!_.isObject(value)) {
@@ -21,6 +21,7 @@ const formatNode = (node, depth) => {
   if (type === undefined) {
     throw new Error(`Тип узла не определен для ключа: ${key}`);
   }
+
   let formattedChildren = '';
   if (children) {
     formattedChildren = children.map((child) => formatNode(child, depth + 1)).join('\n');
@@ -30,16 +31,16 @@ const formatNode = (node, depth) => {
     case 'nested':
       return `${indent(depth)}${key}: {\n${formattedChildren}\n${indent(depth)}}`;
     case 'unchanged':
-      return `${indent(depth)}  ${key}: ${stringify(value, depth)}`;
+      return `${indent(depth)}${key}: ${stringify(value, depth)}`;
     case 'changed':
       return [
-        `${indent(depth)}- ${key}: ${stringify(oldValue, depth)}`,
-        `${indent(depth)}+ ${key}: ${stringify(newValue, depth)}`,
+        `${indent(depth).slice(2)}- ${key}: ${stringify(oldValue, depth)}`,
+        `${indent(depth).slice(2)}+ ${key}: ${stringify(newValue, depth)}`,
       ].join('\n');
     case 'removed':
-      return `${indent(depth)}- ${key}: ${stringify(value, depth)}`;
+      return `${indent(depth).slice(2)}- ${key}: ${stringify(value, depth)}`;
     case 'added':
-      return `${indent(depth)}+ ${key}: ${stringify(value, depth)}`;
+      return `${indent(depth).slice(2)}+ ${key}: ${stringify(value, depth)}`;
     default:
       throw new Error(`Неизвестный тип узла: ${type}`);
   }
@@ -51,7 +52,7 @@ const formatDiff = (diff) => {
     return `{\n${lines.join('\n')}\n}`;
   };
 
-  return iter(diff, 0);
+  return iter(diff, 1);
 };
 
 export default formatDiff;
