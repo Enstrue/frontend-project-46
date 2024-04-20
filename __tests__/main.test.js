@@ -45,3 +45,11 @@ test('Test plain format', () => {
 
   expect(getDiff(filepath1, filepath2, 'plain').trim()).toEqual(expected.trim());
 });
+
+test('Test json format', () => {
+  const filepath1 = getFixturePath('file1.json');
+  const filepath2 = getFixturePath('file2.json');
+  const expected = readFile('expectedResultJson.txt');
+
+  expect(getDiff(filepath1, filepath2, 'json').trim()).toEqual(expected.trim());
+});
