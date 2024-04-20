@@ -46,7 +46,7 @@ const formatNode = (node, depth) => {
   }
 };
 
-const formatDiff = (diff) => {
+const stylishFormatDiff = (diff) => {
   const iter = (nodes, depth) => {
     const lines = nodes.map((node) => formatNode(node, depth));
     return `{\n${lines.join('\n')}\n}`;
@@ -55,4 +55,4 @@ const formatDiff = (diff) => {
   return iter(diff, 1);
 };
 
-export default formatDiff;
+export default stylishFormatDiff;

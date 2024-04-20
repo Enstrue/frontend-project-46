@@ -17,7 +17,7 @@ const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', 
 const readFile = (filename) => fs.readFileSync(getFixturePath(filename), 'utf-8').trim();
 
 test('Uncorrect file types', () => {
-  const filepath1 = getFixturePath('expectedResult.txt');
+  const filepath1 = getFixturePath('expectedResult.tx');
 
   expect(() => getParseFile(filepath1)).toThrow();
 });
@@ -36,4 +36,12 @@ test('Compare YAML files', () => {
   const expected = readFile('expectedResult.txt');
 
   expect(getDiff(filepath1, filepath2).trim()).toEqual(expected.trim());
+});
+
+test('Test plain format', () => {
+  const filepath1 = getFixturePath('file1.json');
+  const filepath2 = getFixturePath('file2.json');
+  const expected = readFile('expectedResultPlain.txt');
+
+  expect(getDiff(filepath1, filepath2, 'plain').trim()).toEqual(expected.trim());
 });
