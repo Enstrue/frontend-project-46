@@ -8,6 +8,9 @@
     "test": "npx jest",
     "coverage": "jest --coverage"
   },
+  "bin": {
+    "gendiff": "bin/gendiff.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Enstrue/frontend-project-46.git"
