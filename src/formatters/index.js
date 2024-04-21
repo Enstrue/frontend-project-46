@@ -11,7 +11,7 @@ const formatters = {
 const selectFormatter = (formatName) => {
   const formatter = formatters[formatName];
   if (!formatter) {
-    throw new Error(`Formatter "${formatName} is not supported`);
+    throw new Error(`Formatter "${formatName}" is not supported`);
   }
   return formatter;
 };
