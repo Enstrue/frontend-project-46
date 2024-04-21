@@ -5,7 +5,7 @@ publish:
 	npm publish --dry-run
 
 gendiff:
-	node bin/index.js
+	node bin/gendiff.js
 
 lint:
 	npx eslint .
