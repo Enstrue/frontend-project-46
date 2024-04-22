@@ -22,10 +22,7 @@ const formatNode = (node, depth) => {
     throw new Error(`Тип узла не определен для ключа: ${key}`);
   }
 
-  let formattedChildren = '';
-  if (children) {
-    formattedChildren = children.map((child) => formatNode(child, depth + 1)).join('\n');
-  }
+  const formattedChildren = children ? children.map((child) => formatNode(child, depth + 1)).join('\n') : '';
 
   switch (type) {
     case 'nested':

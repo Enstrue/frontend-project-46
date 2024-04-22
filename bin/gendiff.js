@@ -3,8 +3,6 @@
 import { Command } from 'commander';
 import getDiff from '../src/diff.js';
 
-let difference;
-
 const program = new Command();
 
 program
@@ -15,7 +13,7 @@ program
   .arguments('<filePath1> <filePath2>', 'path for files')
   .action((filePath1, filePath2, options) => {
     // логика отвечающая за сравнение файлов
-    difference = getDiff(filePath1, filePath2, options.format);
+    const difference = getDiff(filePath1, filePath2, options.format);
     console.log(difference);
   });
 

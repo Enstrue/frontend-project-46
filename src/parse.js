@@ -7,28 +7,20 @@ const getParseFile = (filename) => {
   const getFullPath = makeAbsolutePath(filename);
   const fileContent = fs.readFileSync(getFullPath, 'utf-8');
   const extension = path.extname(getFullPath);
-
   // Проверяем существование файла
   if (!fs.existsSync(getFullPath)) {
     throw new Error(`File not found: ${getFullPath}`);
   }
 
-  let parsedFile;
-
-  switch (extension) {
-    case '.json':
-      parsedFile = JSON.parse(fileContent);
-      break;
-    case '.yaml':
-    case '.yml':
-      parsedFile = yaml.load(fileContent);
-      break;
-    case '.txt':
-      parsedFile = fileContent;
-      break;
-    default:
-      throw new Error(`Unsupported file extension: ${extension}`);
+  if (extension === '.json') {
+    return JSON.parse(fileContent);
   }
-  return parsedFile;
+  if (extension === '.yaml' || extension === '.yml') {
+    return yaml.load(fileContent);
+  }
+  if (extension === '.txt') {
+    return fileContent;
+  }
+  throw new Error(`Unsupported file extension: ${extension}`);
 };
 export default getParseFile;

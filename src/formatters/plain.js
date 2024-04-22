@@ -17,10 +17,8 @@ const formatNode = (node, path = '') => {
 
   const fullPath = path === '' ? key : `${path}.${key}`;
 
-  let formattedChildren = [];
-  if (children) {
-    formattedChildren = children.flatMap((child) => formatNode(child, fullPath));
-  }
+  const formattedChildren = children
+    ? children.flatMap((child) => formatNode(child, fullPath)) : [];
 
   if (type === 'added') {
     return [`Property '${fullPath}' was added with value: ${outputValue(value)}`];
