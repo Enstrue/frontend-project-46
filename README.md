@@ -18,14 +18,14 @@
 
 ```
 # формат plain
-gendiff --format plain path/to/file.yml another/path/file.json
+bin/gendiff.js __fixtures__/file1.json __fixtures__/file2.json -f plain
 
 Property 'common.follow' was added with value: false
 Property 'group1.baz' was updated. From 'bas' to 'bars'
 Property 'group2' was removed
 
 # формат stylish
-gendiff filepath1.json filepath2.json
+bin/gendiff.js __fixtures__/file1.json __fixtures__/file2.json
 
 {
   + follow: false
@@ -41,3 +41,13 @@ gendiff filepath1.json filepath2.json
     }
 }
 ```
+
+## Examples
+### Compare json
+[![asciicast](https://asciinema.org/a/655815.svg)](https://asciinema.org/a/655815)
+### Compare yaml
+[![asciicast](https://asciinema.org/a/655816.svg)](https://asciinema.org/a/655816)
+### Plain output format
+[![asciicast](https://asciinema.org/a/655817.svg)](https://asciinema.org/a/655817)
+### JSON output format
+[![asciicast](https://asciinema.org/a/655818.svg)](https://asciinema.org/a/655818)
