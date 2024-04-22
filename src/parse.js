@@ -1,24 +1,10 @@
 import yaml from 'js-yaml';
 import fs from 'fs';
-import path, { dirname } from 'path';
-import { fileURLToPath } from 'url';
-
-// eslint-disable-next-line no-underscore-dangle
-const __filename = fileURLToPath(import.meta.url);
-
-// eslint-disable-next-line no-underscore-dangle
-const __dirname = dirname(__filename);
-
-// получаю пути к файлам
-const getFixturePath = (filename) => {
-  if (path.isAbsolute(filename)) {
-    return filename;
-  }
-  return path.join(__dirname, '..', '__fixtures__', filename);
-};
+import path from 'path';
+import makeAbsolutePath from './path.js';
 
 const getParseFile = (filename) => {
-  const getFullPath = getFixturePath(filename);
+  const getFullPath = makeAbsolutePath(filename);
   const fileContent = fs.readFileSync(getFullPath, 'utf-8');
   const extension = path.extname(getFullPath);
 
