@@ -30,14 +30,6 @@ test('Uncorrect formatter type', () => {
   expect(() => getDiff(filepath1, filepath2, 'uncorrectType')).toThrow();
 });
 
-test('Files not found', () => {
-  const filepath1 = getFixturePath('fil1.json');
-  const filepath2 = getFixturePath('fil2.json');
-
-  expect(() => getDiff(filepath1, filepath2)).toThrow(`File not found: ${filepath1}`);
-  expect(() => getDiff(filepath1, filepath2)).toThrow(`File not found: ${filepath2}`);
-});
-
 test('Throw error when formatter is not supported', () => {
   const unsupportedFormatName = 'uncorrectType';
   expect(() => selectFormatter(unsupportedFormatName)).toThrow(`Formatter "${unsupportedFormatName}" is not supported`);

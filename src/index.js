@@ -9,14 +9,6 @@ const getDiff = (filePath1, filePath2, formatName = 'stylish') => {
   const firstFilePath = makeAbsolutePath(filePath1);
   const secondFilePath = makeAbsolutePath(filePath2);
 
-  if (!fs.existsSync(firstFilePath)) {
-    throw new Error(`File not found: ${firstFilePath}`);
-  }
-
-  if (!fs.existsSync(secondFilePath)) {
-    throw new Error(`File not found: ${secondFilePath}`);
-  }
-
   const firstFileContent = fs.readFileSync(firstFilePath, 'utf-8');
   const secondFileContent = fs.readFileSync(secondFilePath, 'utf-8');
 
