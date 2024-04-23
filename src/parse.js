@@ -1,26 +1,18 @@
 import yaml from 'js-yaml';
-import fs from 'fs';
-import path from 'path';
-import makeAbsolutePath from './path.js';
 
-const getParseFile = (filename) => {
-  const getFullPath = makeAbsolutePath(filename);
-  const fileContent = fs.readFileSync(getFullPath, 'utf-8');
-  const extension = path.extname(getFullPath);
-  // Проверяем существование файла
-  if (!fs.existsSync(getFullPath)) {
-    throw new Error(`File not found: ${getFullPath}`);
-  }
+const parseJson = (content) => JSON.parse(content);
 
-  if (extension === '.json') {
-    return JSON.parse(fileContent);
+const parseYaml = (content) => yaml.load(content);
+
+const getParseFile = (content, extension) => {
+  switch (extension) {
+    case '.json':
+      return parseJson(content);
+    case '.yaml':
+    case '.yml':
+      return parseYaml(content);
+    default:
+      throw new Error(`Unsupported file extension: ${extension}`);
   }
-  if (extension === '.yaml' || extension === '.yml') {
-    return yaml.load(fileContent);
-  }
-  if (extension === '.txt') {
-    return fileContent;
-  }
-  throw new Error(`Unsupported file extension: ${extension}`);
 };
 export default getParseFile;

@@ -1,8 +1,8 @@
 {
   "name": "@hexlet/code",
   "version": "1.0.0",
-  "description": "[![Actions Status](https://github.com/Enstrue/frontend-project-46/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Enstrue/frontend-project-46/actions)",
-  "main": "src/diff.js",
+  "description": "Compare two files",
+  "main": "src/index.js",
   "type": "module",
   "scripts": {
     "test": "npx jest",

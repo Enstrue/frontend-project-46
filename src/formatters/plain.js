@@ -20,19 +20,18 @@ const formatNode = (node, path = '') => {
   const formattedChildren = children
     ? children.flatMap((child) => formatNode(child, fullPath)) : [];
 
-  if (type === 'added') {
-    return [`Property '${fullPath}' was added with value: ${outputValue(value)}`];
+  switch (type) {
+    case 'added':
+      return [`Property '${fullPath}' was added with value: ${outputValue(value)}`];
+    case 'removed':
+      return [`Property '${fullPath}' was removed`];
+    case 'changed':
+      return [`Property '${fullPath}' was updated. From ${outputValue(oldValue)} to ${outputValue(newValue)}`];
+    case 'nested':
+      return formattedChildren;
+    default:
+      return [];
   }
-  if (type === 'removed') {
-    return [`Property '${fullPath}' was removed`];
-  }
-  if (type === 'changed') {
-    return [`Property '${fullPath}' was updated. From ${outputValue(oldValue)} to ${outputValue(newValue)}`];
-  }
-  if (type === 'nested') {
-    return formattedChildren;
-  }
-  return [];
 };
 
 const plainFormatDiff = (diff) => {

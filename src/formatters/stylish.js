@@ -13,7 +13,7 @@ const stringify = (value, depth) => {
   return `{\n${lines.join('\n')}\n${indent(depth)}}`;
 };
 
-const formatNode = (node, depth) => {
+export const formatNode = (node, depth) => {
   const {
     key, type, value, oldValue, newValue, children,
   } = node;
