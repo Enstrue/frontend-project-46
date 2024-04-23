@@ -27,20 +27,20 @@ test('Uncorrect formatter type', () => {
   const filepath1 = getFixturePath('file1.json');
   const filepath2 = getFixturePath('file2.json');
 
-  expect(() => getDiff(filepath1, filepath2, 'uncorrectType').toThrow());
+  expect(() => getDiff(filepath1, filepath2, 'uncorrectType')).toThrow();
 });
 
 test('Files not found', () => {
   const filepath1 = getFixturePath('fil1.json');
   const filepath2 = getFixturePath('fil2.json');
 
-  expect(() => getDiff(filepath1, filepath2).toThrow(`File not found: ${filepath1}`));
-  expect(() => getDiff(filepath1, filepath2).toThrow(`File not found: ${filepath2}`));
+  expect(() => getDiff(filepath1, filepath2)).toThrow(`File not found: ${filepath1}`);
+  expect(() => getDiff(filepath1, filepath2)).toThrow(`File not found: ${filepath2}`);
 });
 
 test('Throw error when formatter is not supported', () => {
   const unsupportedFormatName = 'uncorrectType';
-  expect(() => selectFormatter(unsupportedFormatName).toThrow(`Formatter "${unsupportedFormatName}" is not supported`));
+  expect(() => selectFormatter(unsupportedFormatName)).toThrow(`Formatter "${unsupportedFormatName}" is not supported`);
 });
 
 test('Compare JSON files', () => {
